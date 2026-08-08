@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://eclectic-profiterole-42f723.netlify.app/sitemap.xml
