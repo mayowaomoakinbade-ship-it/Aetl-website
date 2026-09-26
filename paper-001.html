@@ -41,52 +41,70 @@
     <summary>Can I share this paper?</summary>
     <p>Yes. You can share the paper using the share options below or copy the link and send it to others.</p>
   </details>
-
   <div class="share-box">
     <h2>Share this paper</h2>
 
     <button onclick="sharePaper()">Share</button>
-<div id="share-menu" style="display:none;">
-  <a id="whatsapp-share" target="_blank" rel="noopener">WhatsApp</a>
-  <a id="facebook-share" target="_blank" rel="noopener">Facebook</a>
-  <a id="x-share" target="_blank" rel="noopener">X</a>
-  <a id="email-share">Email</a>
-</div>
+    <button onclick="copyPaperLink()">Copy Link</button>
+
+    <div id="share-menu" style="display:none; margin-top:15px;">
+      <a id="whatsapp-share" target="_blank" rel="noopener">WhatsApp</a>
+      <a id="facebook-share" target="_blank" rel="noopener">Facebook</a>
+      <a id="x-share" target="_blank" rel="noopener">X</a>
+      <a id="email-share">Email</a>
+    </div>
 
     <p id="copy-message"></p>
   </div>
-</section>
 
 <script>
 function sharePaper() {
-  const pageUrl = window.location.href;
-  const pageTitle = document.title;
+  const url = window.location.href;
+  const title = document.title;
 
   if (navigator.share) {
     navigator.share({
-      title: pageTitle,
+      title: title,
       text: "Read this AETL Opinion Paper",
-      url: pageUrl
+      url: url
     }).catch(function() {});
   } else {
-    copyPaperLink();
+    const menu = document.getElementById("share-menu");
+    menu.style.display =
+      menu.style.display === "none" ? "block" : "none";
+
+    document.getElementById("whatsapp-share").href =
+      "https://wa.me/?text=" + encodeURIComponent(title + " " + url);
+
+    document.getElementById("facebook-share").href =
+      "https://www.facebook.com/sharer/sharer.php?u=" +
+      encodeURIComponent(url);
+
+    document.getElementById("x-share").href =
+      "https://twitter.com/intent/tweet?text=" +
+      encodeURIComponent(title) + "&url=" +
+      encodeURIComponent(url);
+
+    document.getElementById("email-share").href =
+      "mailto:?subject=" + encodeURIComponent(title) +
+      "&body=" + encodeURIComponent(url);
   }
 }
 
 function copyPaperLink() {
-  const pageUrl = window.location.href;
+  const url = window.location.href;
   const message = document.getElementById("copy-message");
 
   if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(pageUrl)
+    navigator.clipboard.writeText(url)
       .then(function() {
         message.textContent = "Link copied successfully.";
       })
       .catch(function() {
-        fallbackCopy(pageUrl, message);
+        fallbackCopy(url, message);
       });
   } else {
-    fallbackCopy(pageUrl, message);
+    fallbackCopy(url, message);
   }
 }
 
@@ -104,9 +122,13 @@ function fallbackCopy(text, message) {
     document.execCommand("copy");
     message.textContent = "Link copied successfully.";
   } catch (error) {
-    message.textContent = "Please copy the page address from your browser.";
+    message.textContent =
+      "Please copy the page address from your browser.";
   }
 
   document.body.removeChild(textArea);
 }
 </script>
+  </section>
+</main>
+  
