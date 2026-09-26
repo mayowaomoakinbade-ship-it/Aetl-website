@@ -24,3 +24,54 @@
 <footer><div class="container footer-grid"><div><strong>AETL</strong><p>Advocacy for Ethical &amp; Transformative Leadership</p></div><p>© 2026 AETL.</p></div></footer>
 </body>
 </html>
+<section class="paper-tools">
+  <h2>Frequently Asked Questions</h2>
+
+  <details>
+    <summary>What is AETL?</summary>
+    <p>AETL stands for Advocacy for Ethical & Transformative Leadership. It is a platform for thoughtful reflection on ethics, leadership, faith, and society.</p>
+  </details>
+
+  <details>
+    <summary>Who writes the AETL Opinion Papers?</summary>
+    <p>The opinion papers are written by Rev. Olumayowa Alaba Akinbade and explore issues relating to ethical leadership, Christian faith, the Church, and society.</p>
+  </details>
+
+  <details>
+    <summary>Can I share this paper?</summary>
+    <p>Yes. You can share the paper using the share options below or copy the link and send it to others.</p>
+  </details>
+
+  <div class="share-box">
+    <h2>Share this paper</h2>
+
+    <button onclick="sharePaper()">Share</button>
+    <button onclick="copyPaperLink()">Copy Link</button>
+
+    <p id="copy-message"></p>
+  </div>
+</section>
+
+<script>
+function sharePaper() {
+  const shareData = {
+    title: document.title,
+    text: "Read this AETL Opinion Paper",
+    url: window.location.href
+  };
+
+  if (navigator.share) {
+    navigator.share(shareData);
+  } else {
+    copyPaperLink();
+  }
+}
+
+function copyPaperLink() {
+  navigator.clipboard.writeText(window.location.href)
+    .then(function() {
+      document.getElementById("copy-message").textContent =
+        "Link copied successfully.";
+    });
+}
+</script>
