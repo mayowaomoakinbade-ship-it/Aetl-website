@@ -46,7 +46,12 @@
     <h2>Share this paper</h2>
 
     <button onclick="sharePaper()">Share</button>
-    <button onclick="copyPaperLink()">Copy Link</button>
+<div id="share-menu" style="display:none;">
+  <a id="whatsapp-share" target="_blank" rel="noopener">WhatsApp</a>
+  <a id="facebook-share" target="_blank" rel="noopener">Facebook</a>
+  <a id="x-share" target="_blank" rel="noopener">X</a>
+  <a id="email-share">Email</a>
+</div>
 
     <p id="copy-message"></p>
   </div>
