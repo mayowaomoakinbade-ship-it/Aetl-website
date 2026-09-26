@@ -54,24 +54,54 @@
 
 <script>
 function sharePaper() {
-  const shareData = {
-    title: document.title,
-    text: "Read this AETL Opinion Paper",
-    url: window.location.href
-  };
+  const pageUrl = window.location.href;
+  const pageTitle = document.title;
 
   if (navigator.share) {
-    navigator.share(shareData);
+    navigator.share({
+      title: pageTitle,
+      text: "Read this AETL Opinion Paper",
+      url: pageUrl
+    }).catch(function() {});
   } else {
     copyPaperLink();
   }
 }
 
 function copyPaperLink() {
-  navigator.clipboard.writeText(window.location.href)
-    .then(function() {
-      document.getElementById("copy-message").textContent =
-        "Link copied successfully.";
-    });
+  const pageUrl = window.location.href;
+  const message = document.getElementById("copy-message");
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(pageUrl)
+      .then(function() {
+        message.textContent = "Link copied successfully.";
+      })
+      .catch(function() {
+        fallbackCopy(pageUrl, message);
+      });
+  } else {
+    fallbackCopy(pageUrl, message);
+  }
+}
+
+function fallbackCopy(text, message) {
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.style.position = "fixed";
+  textArea.style.left = "-9999px";
+
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    document.execCommand("copy");
+    message.textContent = "Link copied successfully.";
+  } catch (error) {
+    message.textContent = "Please copy the page address from your browser.";
+  }
+
+  document.body.removeChild(textArea);
 }
 </script>
