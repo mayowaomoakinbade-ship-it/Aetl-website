@@ -92,58 +92,110 @@
 
 <script>
 function sharePaper() {
+  <script>
+function sharePaper() {
   const url = window.location.origin + window.location.pathname;
-  const title = document.querySelector("h1").textContent.trim();
+  const titleElement = document.querySelector("h1");
   const authorElement = document.querySelector(".author");
-  const author = authorElement ? authorElement.textContent.trim() : "";
-  function sharePaper() {
-  const url = window.location.origin + window.location.pathname;
-  const title = document.querySelector("h1").textContent.trim();
-  const authorElement = document.querySelector(".author");
-  const author = authorElement ? authorElement.textContent.trim() : "";
-  const text = title + "\n\n" + author + "\n\n" + "AETL Opinion Paper\n\n" + url;
 
+  const title = titleElement
+    ? titleElement.textContent.trim()
+    : "AETL Opinion Paper";
+
+  const author = authorElement
+    ? authorElement.textContent.trim()
+    : "";
+
+  const text =
+    title +
+    "\n\n" +
+    author +
+    "\n\n" +
+    "AETL Opinion Paper\n\n" +
+    url;
+
+  /* Native sharing */
   if (navigator.share) {
     navigator.share({
       title: title,
       text: text
-    }).catch(function() {});
-  } else {
-    const menu = document.getElementById("share-menu");
+    }).catch(function () {});
+
+    return;
+  }
+
+  /* Fallback share menu */
+  const menu = document.getElementById("share-menu");
+
+  if (menu) {
     menu.style.display =
-      menu.style.display === "none" ? "block" : "none";
+      menu.style.display === "block"
+        ? "none"
+        : "block";
+  }
 
-    document.getElementById("whatsapp-share").href =
-      "https://wa.me/?text=" + encodeURIComponent(text);
+  const whatsapp =
+    document.getElementById("whatsapp-share");
 
-    document.getElementById("facebook-share").href =
+  const facebook =
+    document.getElementById("facebook-share");
+
+  const x =
+    document.getElementById("x-share");
+
+  const email =
+    document.getElementById("email-share");
+
+  if (whatsapp) {
+    whatsapp.href =
+      "https://wa.me/?text=" +
+      encodeURIComponent(text);
+  }
+
+  if (facebook) {
+    facebook.href =
       "https://www.facebook.com/sharer/sharer.php?u=" +
       encodeURIComponent(url);
+  }
 
-    document.getElementById("x-share").href =
+  if (x) {
+    x.href =
       "https://twitter.com/intent/tweet?text=" +
       encodeURIComponent(text);
+  }
 
-    document.getElementById("email-share").href =
-      "mailto:?subject=" + encodeURIComponent(title) +
-      "&body=" + encodeURIComponent(text);
+  if (email) {
+    email.href =
+      "mailto:?subject=" +
+      encodeURIComponent(title) +
+      "&body=" +
+      encodeURIComponent(text);
   }
 }
-    
- 
-  
 
 
+/* COPY LINK */
 function copyPaperLink() {
-  const url = "https://eclectic-profiterole-42f723.netlify.app/paper-001";
-  const message = document.getElementById("copy-message");
+  const url =
+    window.location.origin +
+    window.location.pathname;
 
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(url)
-      .then(function() {
-        message.textContent = "Link copied successfully.";
+  const message =
+    document.getElementById("copy-message");
+
+  if (
+    navigator.clipboard &&
+    window.isSecureContext
+  ) {
+    navigator.clipboard
+      .writeText(url)
+      .then(function () {
+        if (message) {
+          message.textContent =
+            "Link copied successfully.";
+        }
       })
-      .catch(function() {
+      .catch(function () {
         fallbackCopy(url, message);
       });
   } else {
@@ -151,26 +203,48 @@ function copyPaperLink() {
   }
 }
 
+
+/* COPY LINK FALLBACK */
 function fallbackCopy(text, message) {
-  const textArea = document.createElement("textarea");
+  const textArea =
+    document.createElement("textarea");
+
   textArea.value = text;
+
   textArea.style.position = "fixed";
   textArea.style.left = "-9999px";
+  textArea.style.top = "0";
 
   document.body.appendChild(textArea);
+
   textArea.focus();
   textArea.select();
 
   try {
-    document.execCommand("copy");
-    message.textContent = "Link copied successfully.";
+    const successful =
+      document.execCommand("copy");
+
+    if (successful) {
+      if (message) {
+        message.textContent =
+          "Link copied successfully.";
+      }
+    } else {
+      if (message) {
+        message.textContent =
+          "Please copy the page address from your browser.";
+      }
+    }
   } catch (error) {
-    message.textContent =
-      "Please copy the page address from your browser.";
+    if (message) {
+      message.textContent =
+        "Please copy the page address from your browser.";
+    }
   }
 
   document.body.removeChild(textArea);
 }
+</script>
 </script>
   </section>
 </main>
