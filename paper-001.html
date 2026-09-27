@@ -12,7 +12,7 @@
 <p class="eyebrow">AETL OPINION SERIES · VOL. 1, NO. 1 (2025)</p>
 <h1>Coexistence and Conviction: Navigating Religious Exclusivism in a Pluralistic World</h1>
 <p class="lead">An Opinion Paper</p>
-<p><strong>The Rev’d. Olumayowa Alaba Akinbade</strong></p>
+<p class="author"><strong>The Rev’d. Olumayowa Alaba Akinbade</strong></p>
 <p><a href="mailto:mayowaomoakinbade@gmail.com">mayowaomoakinbade@gmail.com</a></p>
 <p>Methodist Clergy and Advocate for Ethical and Transformational Leadership</p>
 <p>AETL Opinion Series · Vol. 1, No. 1 (2025)</p>
@@ -25,17 +25,32 @@
 </body>
 </html>
 <section class="paper-tools">
-  <h2>Frequently Asked Questions</h2>
+ <h2>Frequently Asked Questions</h2>
 
-  <details>
-    <summary>What is AETL?</summary>
-    <p>AETL stands for Advocacy for Ethical & Transformative Leadership. It is a platform for thoughtful reflection on ethics, leadership, faith, and society.</p>
-  </details>
+<details>
+  <summary>What are AETL Opinion Papers?</summary>
+  <p>AETL Opinion Papers are reflective and thought-provoking pieces that engage contemporary ethical, leadership, religious, and societal issues. They provide a space for informed perspectives and constructive conversation.</p>
+</details>
 
-  <details>
-    <summary>Who writes the AETL Opinion Papers?</summary>
-    <p>The opinion papers are written by Rev. Olumayowa Alaba Akinbade and explore issues relating to ethical leadership, Christian faith, the Church, and society.</p>
-  </details>
+<details>
+  <summary>Are AETL Opinion Papers academic or peer-reviewed?</summary>
+  <p>No. AETL Opinion Papers are <strong>not academic or peer-reviewed publications</strong>. They are editorial and reflective pieces intended to stimulate thoughtful discussion and public engagement.</p>
+</details>
+
+<details>
+  <summary>How are submissions reviewed before publication?</summary>
+  <p>Submissions undergo <strong>editorial review</strong> for relevance, clarity, originality, responsible argument, and alignment with AETL’s purpose and values. Editorial review is distinct from academic peer review.</p>
+</details>
+
+<details>
+  <summary>What topics does AETL publish?</summary>
+  <p>AETL publishes reflections on <strong>ethical leadership, church and society, religious coexistence, moral responsibility, governance, integrity, peacebuilding, and social transformation</strong>, among related issues.</p>
+</details>
+
+<details>
+  <summary>Can I contribute an Opinion Paper to AETL?</summary>
+  <p>Yes. AETL welcomes well-considered contributions that engage meaningfully with ethical, leadership, religious, and societal issues. Contributions should be clearly written, responsibly argued, and respectful of differing perspectives.</p>
+</details>
 
   <details>
     <summary>Can I share this paper?</summary>
@@ -59,13 +74,16 @@
 
 <script>
 function sharePaper() {
-  const url = "https://eclectic-profiterole-42f723.netlify.app/paper-001";
-  const title = document.title;
+  const url = window.location.origin + window.location.pathname;
+  const title = document.querySelector("h1").textContent.trim();
+  const authorElement = document.querySelector(".author");
+  const author = authorElement ? authorElement.textContent.trim() : "";
+  const text = title + "\n\n" + author + "\n\nAETL Opinion Paper\n\n" + url;
 
   if (navigator.share) {
     navigator.share({
       title: title,
-      text: "Read this AETL Opinion Paper",
+      text: text,
       url: url
     }).catch(function() {});
   } else {
@@ -74,7 +92,7 @@ function sharePaper() {
       menu.style.display === "none" ? "block" : "none";
 
     document.getElementById("whatsapp-share").href =
-      "https://wa.me/?text=" + encodeURIComponent(title + " " + url);
+      "https://wa.me/?text=" + encodeURIComponent(text);
 
     document.getElementById("facebook-share").href =
       "https://www.facebook.com/sharer/sharer.php?u=" +
@@ -82,12 +100,14 @@ function sharePaper() {
 
     document.getElementById("x-share").href =
       "https://twitter.com/intent/tweet?text=" +
-      encodeURIComponent(title) + "&url=" +
-      encodeURIComponent(url);
+      encodeURIComponent(text);
 
     document.getElementById("email-share").href =
       "mailto:?subject=" + encodeURIComponent(title) +
-      "&body=" + encodeURIComponent(url);
+      "&body=" + encodeURIComponent(text);
+  }
+}
+ 
   }
 }
 
