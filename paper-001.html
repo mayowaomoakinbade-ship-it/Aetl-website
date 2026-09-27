@@ -92,9 +92,8 @@
 
 <script>
 function sharePaper() {
-  <script>
-function sharePaper() {
   const url = window.location.origin + window.location.pathname;
+
   const titleElement = document.querySelector("h1");
   const authorElement = document.querySelector(".author");
 
@@ -107,24 +106,22 @@ function sharePaper() {
     : "";
 
   const text =
-    title +
-    "\n\n" +
-    author +
-    "\n\n" +
+    title + "\n\n" +
+    author + "\n\n" +
     "AETL Opinion Paper\n\n" +
     url;
 
-  /* Native sharing */
+  /* Native Share */
   if (navigator.share) {
     navigator.share({
       title: title,
       text: text
     }).catch(function () {});
-
+    
     return;
   }
 
-  /* Fallback share menu */
+  /* Share menu for browsers without native Share */
   const menu = document.getElementById("share-menu");
 
   if (menu) {
@@ -187,17 +184,19 @@ function copyPaperLink() {
     navigator.clipboard &&
     window.isSecureContext
   ) {
-    navigator.clipboard
-      .writeText(url)
+    navigator.clipboard.writeText(url)
       .then(function () {
+
         if (message) {
           message.textContent =
             "Link copied successfully.";
         }
+
       })
       .catch(function () {
         fallbackCopy(url, message);
       });
+
   } else {
     fallbackCopy(url, message);
   }
@@ -221,30 +220,26 @@ function fallbackCopy(text, message) {
   textArea.select();
 
   try {
-    const successful =
-      document.execCommand("copy");
 
-    if (successful) {
-      if (message) {
-        message.textContent =
-          "Link copied successfully.";
-      }
-    } else {
-      if (message) {
-        message.textContent =
-          "Please copy the page address from your browser.";
-      }
+    document.execCommand("copy");
+
+    if (message) {
+      message.textContent =
+        "Link copied successfully.";
     }
+
   } catch (error) {
+
     if (message) {
       message.textContent =
         "Please copy the page address from your browser.";
     }
+
   }
 
   document.body.removeChild(textArea);
 }
-</script>
+</script>>
 </script>
   </section>
 </main>
