@@ -70,6 +70,53 @@
 </section>
 </main>
 
-<footer><div class="container footer-grid"><div><strong>AETL</strong><p>Advocacy for Ethical & Transformative Leadership</p></div><p>© 2026 AETL. All rights reserved.</p></div></footer>
+<section class="subscribe-section">
+  <div class="container">
+    <h2>Stay Connected with AETL</h2>
+
+    <p>
+      Subscribe to receive new AETL Opinion Papers and updates on ethical
+      and transformative leadership.
+    </p>
+
+    <form
+      name="aetl-subscribe"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+    >
+      <input type="hidden" name="form-name" value="aetl-subscribe">
+
+      <p style="display:none;">
+        <label>
+          Don’t fill this out:
+          <input name="bot-field">
+        </label>
+      </p>
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter your email address"
+        required
+      >
+
+      <button type="submit">Subscribe</button>
+    </form>
+
+    <small>Your email will only be used for AETL updates.</small>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <strong>AETL</strong>
+      <p>Advocacy for Ethical & Transformative Leadership</p>
+    </div>
+    <p>© 2026 AETL. All rights reserved.</p>
+  </div>
+</footer>
+
 </body>
 </html>
