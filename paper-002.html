@@ -18,7 +18,7 @@
       <small>Advocacy for Ethical &amp; Transformative Leadership</small>
     </a>
 
-```
+
 <nav>
   <a href="index.html">Home</a>
   <a href="about.html">About</a>
@@ -26,7 +26,7 @@
   <a href="author.html">Author</a>
   <a href="contact.html">Contact</a>
 </nav>
-```
+
 
   </div>
 </header>
@@ -34,7 +34,7 @@
 <main class="page">
   <article class="container">
 
-```
+
 <p class="eyebrow">AETL OPINION PAPER NO. 002</p>
 
 <h1>Before the Agenda: Why Every Newly Transferred Minister Must First Learn to Listen</h1>
@@ -212,9 +212,26 @@
 <p>Pastoral leadership is not measured simply by how quickly a minister introduces an agenda. It is also measured by whether the minister understands the people, honours their dignity, recognises the gifts already present and helps the congregation move faithfully towards its calling.</p>
 
 <p><strong>Before the agenda, listen. Not because leadership must wait forever, but because leadership that listens is better prepared to lead well.</strong></p>
-```
 
-  </article>
+
+ </article>
+
+<section class="share-box">
+  <h2>Share this paper</h2>
+
+  <button onclick="sharePaper()">Share</button>
+  <button onclick="copyPaperLink()">Copy Link</button>
+
+  <div id="share-menu" style="display:none; margin-top:15px;">
+    <a id="whatsapp-share" target="_blank" rel="noopener">WhatsApp</a>
+    <a id="facebook-share" target="_blank" rel="noopener">Facebook</a>
+    <a id="x-share" target="_blank" rel="noopener">X</a>
+    <a id="email-share">Email</a>
+  </div>
+
+  <p id="copy-message"></p>
+</section>
+
 </main>
 
 <footer>
@@ -226,6 +243,119 @@
     <p>© 2026 AETL.</p>
   </div>
 </footer>
+<script>
+function sharePaper() {
+  const url = window.location.origin + window.location.pathname;
 
+  const titleElement = document.querySelector("h1");
+  const authorElement = document.querySelector(".author");
+
+  const title = titleElement
+    ? titleElement.textContent.trim()
+    : "AETL Opinion Paper";
+
+  const author = authorElement
+    ? authorElement.textContent.trim()
+    : "Rev. Olumayowa Alaba Akinbade";
+
+  const text =
+    title + "\n\n" +
+    author + "\n\n" +
+    "AETL Opinion Paper\n\n" +
+    url;
+
+  if (navigator.share) {
+    navigator.share({
+      title: title,
+      text: text,
+      url: url
+    }).catch(function () {});
+    return;
+  }
+
+  const menu = document.getElementById("share-menu");
+
+  if (menu) {
+    menu.style.display =
+      menu.style.display === "block" ? "none" : "block";
+  }
+
+  const whatsapp = document.getElementById("whatsapp-share");
+  const facebook = document.getElementById("facebook-share");
+  const x = document.getElementById("x-share");
+  const email = document.getElementById("email-share");
+
+  if (whatsapp) {
+    whatsapp.href =
+      "https://wa.me/?text=" + encodeURIComponent(text);
+  }
+
+  if (facebook) {
+    facebook.href =
+      "https://www.facebook.com/sharer/sharer.php?u=" +
+      encodeURIComponent(url);
+  }
+
+  if (x) {
+    x.href =
+      "https://twitter.com/intent/tweet?text=" +
+      encodeURIComponent(text);
+  }
+
+  if (email) {
+    email.href =
+      "mailto:?subject=" + encodeURIComponent(title) +
+      "&body=" + encodeURIComponent(text);
+  }
+}
+
+function copyPaperLink() {
+  const url = window.location.origin + window.location.pathname;
+  const message = document.getElementById("copy-message");
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(url)
+      .then(function () {
+        if (message) {
+          message.textContent = "Link copied successfully.";
+        }
+      })
+      .catch(function () {
+        fallbackCopy(url, message);
+      });
+  } else {
+    fallbackCopy(url, message);
+  }
+}
+
+function fallbackCopy(text, message) {
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.style.position = "fixed";
+  textArea.style.left = "-9999px";
+  textArea.style.top = "0";
+
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    const successful = document.execCommand("copy");
+
+    if (message) {
+      message.textContent = successful
+        ? "Link copied successfully."
+        : "Please copy the page address from your browser.";
+    }
+  } catch (error) {
+    if (message) {
+      message.textContent =
+        "Please copy the page address from your browser.";
+    }
+  }
+
+  document.body.removeChild(textArea);
+}
+</script>
 </body>
 </html>
