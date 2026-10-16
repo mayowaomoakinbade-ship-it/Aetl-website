@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
     <loc>https://eclectic-profiterole-42f723.netlify.app/</loc>
   </url>
-
   <url>
     <loc>https://eclectic-profiterole-42f723.netlify.app/about</loc>
   </url>
-
   <url>
     <loc>https://eclectic-profiterole-42f723.netlify.app/opinion-papers</loc>
   </url>
-
   <url>
     <loc>https://eclectic-profiterole-42f723.netlify.app/paper-001</loc>
   </url>
-
+  <url>
+    <loc>https://eclectic-profiterole-42f723.netlify.app/paper-002</loc>
+  </url>
   <url>
     <loc>https://eclectic-profiterole-42f723.netlify.app/author</loc>
   </url>
-
   <url>
     <loc>https://eclectic-profiterole-42f723.netlify.app/contact</loc>
   </url>
-
 </urlset>
